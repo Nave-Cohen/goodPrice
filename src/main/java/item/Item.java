@@ -1,11 +1,14 @@
 package item;
 
 import javafx.scene.image.Image;
+import org.json.JSONObject;
 import scraper.AbstractScraper;
 import scraper.AliScrape;
 import scraper.ScraperIF;
 
-import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.StringWriter;
 
 public class Item implements ScraperIF {
     private String name, url, type;
@@ -17,9 +20,10 @@ public class Item implements ScraperIF {
         this.url = url;
         this.type = type;
         this.minPrice = price;
-        if (type == "ali")
+        if (type.equals("ali"))
             scraper = new AliScrape(name, url, type);
     }
+
 
     public void setMinPrice(Double minPrice) {
         if (minPrice < 0)

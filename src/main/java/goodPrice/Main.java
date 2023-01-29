@@ -17,8 +17,11 @@ public class Main extends Application {
         hostServices = getHostServices();
         FXMLLoader load = new FXMLLoader(getClass().getResource("/MAIN.fxml"));
         Parent root = load.load();
+        mainController controller = load.getController();
+
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setOnCloseRequest(e->{controller.writeAll();});
         stage.show();
     }
 
