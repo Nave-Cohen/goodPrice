@@ -20,6 +20,6 @@ public class Main extends Application{
         }
 
         public static void main(String[] args) {
-            System.out.println(Main.class.getResource("/MAIN.fxml"));launch(args);
+            launch(args);
         }
 }
