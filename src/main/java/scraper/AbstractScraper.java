@@ -1,9 +1,11 @@
 package scraper;
 
 import javafx.scene.image.Image;
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -20,6 +22,14 @@ public abstract class AbstractScraper implements ScraperIF {
         }
     }
 
+
+    public AbstractScraper(String url,File file){
+        try {
+            this.doc = Jsoup.parse(file);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public Image getImg(String url) {
         URL imageUrl = null;
