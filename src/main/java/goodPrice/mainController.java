@@ -30,8 +30,8 @@ public class mainController {
     @FXML
     private ImageView priceError, urlError, nameError, comboError;
 
-    private static ObservableList<Item> items = FXCollections.observableArrayList();
-    private ObservableList<String> options = FXCollections.observableArrayList("AliExpress");
+    private static final ObservableList<Item> items = FXCollections.observableArrayList();
+    private final ObservableList<String> options = FXCollections.observableArrayList("AliExpress");
 
     //load item from Database.
     //save added item to database.
@@ -53,7 +53,7 @@ public class mainController {
     }
 
     private Boolean checkInput() {
-        Boolean bool = true;
+        boolean bool = true;
         try {
             Double.parseDouble(minPriceEntry.getText());
         } catch (Exception e) {

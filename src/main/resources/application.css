@@ -1,0 +1,59 @@
+.root {
+    -fx-background-color: #1e2124;
+}
+.text-field {
+    -fx-background-color: #424549;
+    -fx-background-radius: 25px;
+    -fx-text-fill: white;
+}
+.cell-txt{
+    -fx-fill: white;
+    -fx-font-family: ariel;
+}
+
+.button {
+    -fx-text-fill: white;
+    -fx-background-color: #7289da;
+    -fx-background-radius: 25px;
+}
+.combo-box .list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: linear-gradient(#328BDB 0%, #207BCF 25%, #1973C9 75%, #0A65BF 100%);
+    -fx-text-fill: white;
+}
+.combo-box .list-cell {
+    -fx-background-radius: 25px;
+    -fx-background-color: #424549;
+    -fx-text-fill: white;
+}
+.combo-box {
+    -fx-text-fill: white;
+    -fx-background-radius: 25px;
+    -fx-background-color: #1e2124;
+    -fx-border-radius: 25px;
+    -fx-border-color: #424549;
+    -fx-border-size: 1px;
+}
+.list-view {
+    -fx-background-color: #1e2124;
+}
+.list-view .list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: linear-gradient(#328BDB 0%, #207BCF 25%, #1973C9 75%, #0A65BF 100%);
+    -fx-text-fill: white;
+}
+.list-view .list-cell {
+    -fx-text-fill: white;
+    -fx-background-radius: 25px;
+    -fx-background-color: #1e2124;
+    -fx-border-radius: 25px;
+    -fx-border-color: #282b30;
+    -fx-border-size: 1px;
+    -fx-padding: 6px;
+    -fx-border-insets: 6px;
+    -fx-background-insets: 6px;
+}
+
+
+.list-view .list-cell:filled:hover {
+    -fx-background-color: #0093ff;
+    -fx-text-fill: white;
+}

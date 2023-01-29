@@ -8,8 +8,13 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class jsonHandler {
-    private static File folder = new File("items");
+    private static final File folder = new File("items");
 
+    private static String filePath(String name){
+        if (name == null || name.equals(""))
+            return folder.getAbsolutePath();//path to folder
+        return String.format("%s/%s.json",folder.getAbsolutePath(),name);
+    }
     private static void writeItem(Item item) {
         JSONObject obj = new JSONObject();
         obj.put("name", item.getName());
@@ -19,7 +24,7 @@ public class jsonHandler {
         StringWriter out = new StringWriter();
         obj.write(out);
         try {
-            FileWriter file = new FileWriter("items/" + item.getName() + ".json");
+            FileWriter file = new FileWriter(filePath(item.getName()));
             file.write(out.toString());
             file.close();
         } catch (Exception e) {
@@ -37,7 +42,7 @@ public class jsonHandler {
         }
     }
     public static void removeItem(Item item){
-        File file = new File(folder.getAbsolutePath()+"/"+item.getName()+".json");
+        File file = new File(filePath(item.getName()));
         file.delete();
     }
     public static void writeAllItems(ObservableList<Item> items){
@@ -45,8 +50,8 @@ public class jsonHandler {
             writeItem(item);
     }
     public static ArrayList<Item> readAllItems() {
-        ArrayList<Item> items = new ArrayList<Item>();
-        for (final File fileEntry : folder.listFiles()) {
+        ArrayList<Item> items = new ArrayList<>();
+        for (final File fileEntry : folder.listFiles()) { //iterate all files
             if (!fileEntry.getName().endsWith(".json"))
                 continue;
             items.add(readItem(fileEntry.getAbsolutePath()));
