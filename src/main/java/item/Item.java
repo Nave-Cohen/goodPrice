@@ -1,25 +1,43 @@
 package item;
 
 import javafx.scene.image.Image;
+import org.json.JSONObject;
 import scraper.AbstractScraper;
 import scraper.AliScrape;
 import scraper.ScraperIF;
 
-import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.Objects;
 
 public class Item implements ScraperIF {
     private String name, url, type;
     private Double price, minPrice;
     private AbstractScraper scraper;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return url.equals(item.url);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(url);
+    }
+
     public Item(String name, String url, Double price, String type) {
         this.name = name;
         this.url = url;
         this.type = type;
         this.minPrice = price;
-        if (type == "ali")
+        if (type.equals("AliExpress"))
             scraper = new AliScrape(name, url, type);
     }
+
 
     public void setMinPrice(Double minPrice) {
         if (minPrice < 0)

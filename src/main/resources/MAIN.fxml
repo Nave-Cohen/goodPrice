@@ -1,16 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="524.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="goodPrice.mainController">
    <children>
       <ListView fx:id="listview" layoutX="13.0" layoutY="94.0" prefHeight="295.0" prefWidth="500.0" />
-      <TextField layoutX="22.0" layoutY="21.0" prefHeight="25.0" prefWidth="488.0" promptText="URL" />
-      <TextField layoutX="22.0" layoutY="59.0" promptText="Name" />
-      <TextField layoutX="182.0" layoutY="59.0" prefHeight="25.0" prefWidth="69.0" promptText="Min Price" />
-      <Button layoutX="445.0" layoutY="59.0" mnemonicParsing="false" text="Add item" />
+      <TextField fx:id="urlEntry" layoutX="30.0" layoutY="21.0" prefHeight="25.0" prefWidth="480.0" promptText="URL" />
+      <TextField fx:id="nameEntry" layoutX="29.0" layoutY="59.0" prefHeight="25.0" prefWidth="142.0" promptText="Name" />
+      <TextField fx:id="minPriceEntry" layoutX="199.0" layoutY="59.0" prefHeight="25.0" prefWidth="69.0" promptText="Min Price" />
+      <Button fx:id="addBtn" layoutX="445.0" layoutY="59.0" mnemonicParsing="false" onAction="#add" text="Add item" />
+      <ComboBox fx:id="combo" layoutX="298.0" layoutY="59.0" prefHeight="25.0" prefWidth="115.0" promptText="Choose site" />
+      <ImageView fx:id="nameError" fitHeight="12.0" fitWidth="12.0" layoutX="8.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@error.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="priceError" fitHeight="12.0" fitWidth="12.0" layoutX="178.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@error.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="comboError" fitHeight="12.0" fitWidth="12.0" layoutX="278.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@error.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="urlError" fitHeight="12.0" fitWidth="12.0" layoutX="8.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@error.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
