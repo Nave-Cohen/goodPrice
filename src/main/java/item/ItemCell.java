@@ -1,11 +1,13 @@
 package item;
 
 import java.io.IOException;
-import java.net.URL;
 
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 /**
  * CartCell is a controller class for an order cart view.
@@ -14,8 +16,8 @@ import javafx.scene.layout.AnchorPane;
  */
 public class ItemCell extends ListCell<Item> {
 
-	private AnchorPane root;
-	private ItemCellController controller;
+	private final Pane root;
+	private final ItemCellController controller;
 
 	/**
 	 * Constructor for loading FXML file "CartProduct".
@@ -25,6 +27,7 @@ public class ItemCell extends ListCell<Item> {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/itemCell.fxml"));
 			root = loader.load();
 			controller = loader.getController();
+
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

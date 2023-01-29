@@ -20,8 +20,13 @@ public class Main extends Application {
         mainController controller = load.getController();
 
         Scene scene = new Scene(root);
+        String css = this.getClass().getResource("/application.css").toExternalForm();
+        scene.getStylesheets().add(css);
         stage.setScene(scene);
-        stage.setOnCloseRequest(e->{controller.writeAll();});
+        stage.setOnCloseRequest(e -> {
+            controller.writeAll();
+            System.exit(0);
+        });
         stage.show();
     }
 

@@ -4,9 +4,6 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
-
 
 javafx {
     version = "11"
@@ -32,6 +29,7 @@ application {
     mainClassName = 'goodPrice.Main' // class with the main method used by Gradle plugin
 }
 jar {
+    project.mkdir "${buildDir}/libs/items" //create items folder
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
         attributes 'Main-Class': application.mainClassName

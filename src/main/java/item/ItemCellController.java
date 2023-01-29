@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 import java.io.InputStream;
@@ -21,7 +23,9 @@ public class ItemCellController {
     private Text priceText, discountText, wantedText, nameText, descText;
 
     @FXML
-    private ImageView img, checkImg, delIcon;
+    private ImageView checkImg, delIcon;
+    @FXML
+    private Circle img;
     @FXML
     private Button orderBtn;
     private Item item;
@@ -34,7 +38,7 @@ public class ItemCellController {
         discountText.setText("Discount: " + item.getDiscount().toString() + "%");
         wantedText.setText("Wanted Price: " + item.getMinPrice().toString());
         checkImg.setImage(checkImage());
-        img.setImage(item.getImg());
+        img.setFill(new ImagePattern(item.getImg()));
     }
 
     @FXML
@@ -50,10 +54,10 @@ public class ItemCellController {
     private Image checkImage() {
         if (item.isPrice()) {
 
-            InputStream url = getClass().getResourceAsStream("/check.png");
+            InputStream url = getClass().getResourceAsStream("/images/check.png");
             return new Image(url);
         } else {
-            InputStream url = getClass().getResourceAsStream("/uncheck.png");
+            InputStream url = getClass().getResourceAsStream("/images/uncheck.png");
             return new Image(url);
         }
     }

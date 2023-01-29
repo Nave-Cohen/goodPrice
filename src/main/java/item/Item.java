@@ -1,20 +1,27 @@
 package item;
 
 import javafx.scene.image.Image;
-import org.json.JSONObject;
 import scraper.AbstractScraper;
 import scraper.AliScrape;
-import scraper.ScraperIF;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.StringWriter;
 import java.util.Objects;
 
-public class Item implements ScraperIF {
-    private String name, url, type;
+public class Item implements ItemIF {
+    private String name;
+    private final String url;
+    private final String type;
     private Double price, minPrice;
     private AbstractScraper scraper;
+
+
+    public Item(String name, String url, Double price, String type) {
+        this.name = name;
+        this.url = url;
+        this.type = type;
+        this.minPrice = price;
+        if (type.equals("AliExpress"))
+            scraper = new AliScrape(url);
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -29,22 +36,13 @@ public class Item implements ScraperIF {
         return Objects.hash(url);
     }
 
-    public Item(String name, String url, Double price, String type) {
-        this.name = name;
-        this.url = url;
-        this.type = type;
-        this.minPrice = price;
-        if (type.equals("AliExpress"))
-            scraper = new AliScrape(name, url, type);
-    }
-
-
+    @Override
     public void setMinPrice(Double minPrice) {
         if (minPrice < 0)
             throw new RuntimeException("Min price illegal");
         this.minPrice = minPrice;
     }
-
+    @Override
     public Double getMinPrice() {
         return minPrice;
     }
@@ -76,9 +74,9 @@ public class Item implements ScraperIF {
     @Override
     public void setName(String name) {
         this.name = name;
-        scraper.setName(name);
     }
 
+    @Override
     public String getDescription() {
         return scraper.getDescription();
     }
