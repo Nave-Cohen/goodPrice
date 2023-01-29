@@ -32,7 +32,7 @@ public class Item implements ScraperIF {
     }
 
     public Boolean isPrice() {
-        return minPrice <= scraper.getPrice();
+        return scraper.getPrice() <= minPrice;
     }
 
     @Override
