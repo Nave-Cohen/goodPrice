@@ -10,7 +10,7 @@ public class Item implements ItemIF {
     private String name;
     private final String url;
     private final String type;
-    private Double price, minPrice;
+    private Double minPrice;
     private AbstractScraper scraper;
 
 
@@ -21,6 +21,13 @@ public class Item implements ItemIF {
         this.minPrice = price;
         if (type.equals("AliExpress"))
             scraper = new AliScrape(url);
+    }
+    public Item(String name, String url, Double price, String type,AbstractScraper scraper) {
+        this.name = name;
+        this.url = url;
+        this.type = type;
+        this.minPrice = price;
+        this.scraper = scraper;
     }
 
     @Override
