@@ -13,6 +13,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
+import java.io.IOException;
+
 
 public class mainController {
     @FXML
@@ -33,10 +35,8 @@ public class mainController {
     private static final ObservableList<Item> items = FXCollections.observableArrayList();
     private final ObservableList<String> options = FXCollections.observableArrayList("AliExpress");
 
-    //load item from Database.
-    //save added item to database.
     @FXML
-    protected void initialize() {
+    protected void initialize() throws Exception {
         listview.setCellFactory(listView -> new ItemCell());
         items.addAll(jsonHandler.readAllItems());
         combo.setItems(options);
@@ -48,9 +48,6 @@ public class mainController {
         jsonHandler.removeItem(item);
     }
 
-    public void writeAll() {
-        jsonHandler.writeAllItems(items);
-    }
 
     private Boolean checkInput() {
         boolean bool = true;
@@ -86,8 +83,10 @@ public class mainController {
         Double minPrice = Double.parseDouble(minPriceEntry.getText());
         String type = combo.getSelectionModel().getSelectedItem();
         Item item = new Item(name, url, minPrice, type);
-        if (!items.contains(item))
+        if (!items.contains(item)) {
             items.add(item);
+            jsonHandler.addItem(item);
+        }
         clearFields();
     }
 
