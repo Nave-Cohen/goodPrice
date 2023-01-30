@@ -18,6 +18,7 @@ public class jsonHandler {
     public static void setFolder(File file) {
         itemFile = file;
         jsonArray = new JSONArray();
+
     }
 
     public static void addItem(Item item) {
