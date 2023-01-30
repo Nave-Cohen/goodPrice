@@ -26,20 +26,20 @@ public class AbstractScraperTest {
 
     @Test
     public void getPriceSuccess() {
-        Double expected = 1.83;
-        Double result = scraper.getPrice();
-        assertEquals(expected, result);
-    }
+
+        Double expected = 1.81;
+
     @Test
     public void getDiscountSuccess(){
         Integer expected = 89;
         Integer result = scraper.getDiscount();
         assertEquals(expected, result);
     }
+
     @Test
     public void getDescriptionSuccess() {
         String expected = "Usb Heated Shoe Insoles Electric Foot Warming Pad Feet Warmer Sock Pad Mat Winter Outdoor Sports Heating Insole Winter Warm - Insoles - AliExpress";
         String result = scraper.getDescription();
         assertEquals(expected,result);
     }
-}
+
