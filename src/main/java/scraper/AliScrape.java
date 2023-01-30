@@ -2,10 +2,15 @@ package scraper;
 
 import javafx.scene.image.Image;
 
+import java.io.File;
+
 public class AliScrape extends AbstractScraper {
 
     public AliScrape(String url) {
         super(url);
+    }
+    public AliScrape(String url, String html) {
+        super(url, html);
     }
 
     private String meta(String value) {return doc.select(String.format("meta[property=%s]" ,value)).first().attr("content");}
