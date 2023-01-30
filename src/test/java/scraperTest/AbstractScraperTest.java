@@ -39,6 +39,7 @@ public class AbstractScraperTest {
     @Test
     public void getDescriptionSuccess() {
         String expected = "Usb Heated Shoe Insoles Electric Foot Warming Pad Feet Warmer Sock Pad Mat Winter Outdoor Sports Heating Insole Winter Warm - Insoles - AliExpress";
-        assertEquals(expected,scraper.getDescription());
+        String result = scraper.getDescription();
+        assertEquals(expected,result);
     }
 }
