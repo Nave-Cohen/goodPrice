@@ -1,9 +1,23 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.adarshr:gradle-test-logger-plugin:3.2.0"
+    }
+}
 plugins {
     id 'java'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.13'
+    id "com.adarshr.test-logger" version "3.2.0"
 }
 
+
+
+apply plugin: "com.adarshr.test-logger"
 
 javafx {
     version = "11"
@@ -17,6 +31,7 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.15.3'
     implementation group: 'org.json', name: 'json', version: '20220924'
 
+    testImplementation "org.junit.platform:junit-platform-suite:1.9.1"
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.1.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
@@ -24,6 +39,9 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    filter{
+        includeTestsMatching "goodPriceTest.mainTest"
+    }
 }
 application {
     mainClassName = 'goodPrice.Main' // class with the main method used by Gradle plugin
@@ -37,5 +55,4 @@ jar {
     from {
         configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
     }
-
 }

@@ -10,13 +10,13 @@ import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AbstractScraperTest {
+public class AliScrapeTest {
     private AbstractScraper scraper;
 
     @BeforeEach
     public void setUp() throws IOException {
         String html = "";
-        InputStream path = AbstractScraperTest.class.getResourceAsStream("/aliExpress.html");
+        InputStream path = AliScrapeTest.class.getResourceAsStream("/aliExpress.html");
         BufferedReader reader = new BufferedReader(new InputStreamReader(path, StandardCharsets.UTF_8));
         String inputLine;
         while ((inputLine = reader.readLine()) != null)

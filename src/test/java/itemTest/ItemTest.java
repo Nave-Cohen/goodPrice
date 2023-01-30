@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 import scraper.AbstractScraper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.when;
 
 public class ItemTest {
@@ -16,7 +17,7 @@ public class ItemTest {
     @BeforeEach
     public void setUp() {
         scraper = Mockito.mock(AbstractScraper.class);
-        item = new Item("test-item", "test-url", 20.0, "test-type", scraper);
+        item = new Item("test-name", "test-url", 12.0, "test-type", scraper);
     }
 
     @Test
@@ -43,5 +44,103 @@ public class ItemTest {
         assertEquals(expected, result);
     }
 
+
+    @Test
+    public void getMinPriceSuccess() {
+        Double expected = 12.0;
+        Double result = item.getMinPrice();
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void getTypeSuccess() {
+        String expected = "test-type";
+        String result = item.getType();
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void getNameSuccess() {
+        String expected = "test-name";
+        String result = item.getName();
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void getUrlSuccess() {
+        String expected = "test-url";
+        String result = item.getUrl();
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void isPriceSuccess() {
+        Boolean expected = true;
+        Boolean result = item.isPrice();
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void isPriceFail() {
+        when(scraper.getPrice()).thenReturn(100.0);
+        Boolean expected = false;
+        Boolean result = item.isPrice();
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void setMinPriceSuccess() {
+        item.setMinPrice(25.0);
+        Double expected = 25.0;
+        Double result = item.getMinPrice();
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void setMinPriceFail() {
+        try {
+            item.setMinPrice(-1.0);
+        } catch (RuntimeException e) {
+            Double expected = 12.0;
+            Double result = item.getMinPrice();
+            assertEquals(expected, result);
+            return;
+        }
+        fail("RuntimeException need to be raised.");
+    }
+
+    @Test
+    public void setNameSuccess() {
+        String expected = "test-name2";
+        item.setName(expected);
+        String result = item.getName();
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void setNameNullFail() {
+        try {
+            item.setName(null);
+        } catch (RuntimeException e) {
+            String expected = "test-name";
+            String result = item.getName();
+            assertEquals(expected, result);
+            return;
+        }
+        fail("RuntimeException need to be raised.");
+    }
+
+    @Test
+    public void setNameEmptyFail() {
+        try {
+            item.setName("");
+        } catch (RuntimeException e) {
+            String expected = "test-name";
+            String result = item.getName();
+            assertEquals(expected, result);
+            return;
+        }
+        fail("RuntimeException need to be raised.");
+    }
 
 }
