@@ -18,7 +18,6 @@ public class jsonHandler {
     public static void setFolder(File file) {
         itemFile = file;
         jsonArray = new JSONArray();
-
     }
 
     public static void addItem(Item item) {
@@ -36,6 +35,7 @@ public class jsonHandler {
         jsonArray.remove(i);
     }
     //public static void writeItems(ObservableList<Item> items)  //implementation needed.
+
     public static void writeItems() {
         try {
             FileWriter out = new FileWriter(itemFile);
