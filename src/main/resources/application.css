@@ -52,7 +52,9 @@
     -fx-background-insets: 6px;
 }
 
-
+.list-cell:empty {
+    -fx-border-size: 0px;
+}
 .list-view .list-cell:filled:hover {
     -fx-background-color: #0093ff;
     -fx-text-fill: white;

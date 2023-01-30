@@ -2,60 +2,73 @@ package handler;
 
 import item.Item;
 import javafx.collections.ObservableList;
-import org.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class jsonHandler {
-    private static final File folder = new File("items");
+    private static File itemFile = new File("items/items.json");
+    private static JSONArray jsonArray = new JSONArray();
 
-    private static String filePath(String name){
-        if (name == null || name.equals(""))
-            return folder.getAbsolutePath();//path to folder
-        return String.format("%s/%s.json",folder.getAbsolutePath(),name);
+    public static void setFolder(File file) {
+        itemFile = file;
     }
-    private static void writeItem(Item item) {
-        JSONObject obj = new JSONObject();
-        obj.put("name", item.getName());
-        obj.put("url", item.getUrl());
-        obj.put("type", item.getType());
-        obj.put("minPrice", item.getMinPrice());
-        StringWriter out = new StringWriter();
-        obj.write(out);
+
+    public static void addItem(Item item) {
+        jsonArray.add(itemToJson(item));
+    }
+
+    public static void removeItem(Item item) {
+        jsonArray.remove(itemToJson(item));
+    }
+
+    public static void writeItems(ObservableList<Item> items) throws IOException {
+        //implementation needed.
+    }
+
+    public static void writeItems() {
         try {
-            FileWriter file = new FileWriter(filePath(item.getName()));
-            file.write(out.toString());
-            file.close();
-        } catch (Exception e) {
+            FileWriter out = new FileWriter(itemFile);
+            out.write(jsonArray.toString());
+            out.flush();
+        } catch (IOException e) {
             throw new RuntimeException();
         }
     }
 
-    private static Item readItem(String filePath) {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
-            JSONObject jsonObj = new JSONObject(reader.readLine());
-            return new Item(jsonObj.getString("name"), jsonObj.getString("url"), jsonObj.getDouble("minPrice"), jsonObj.getString("type"));
-        } catch (Exception e) {
-            throw new RuntimeException();
-        }
-    }
-    public static void removeItem(Item item){
-        File file = new File(filePath(item.getName()));
-        file.delete();
-    }
-    public static void writeAllItems(ObservableList<Item> items){
-        for (Item item:items)
-            writeItem(item);
-    }
-    public static ArrayList<Item> readAllItems() {
+
+    public static ArrayList<Item> readItems() throws Exception {
         ArrayList<Item> items = new ArrayList<>();
-        for (final File fileEntry : folder.listFiles()) { //iterate all files
-            if (!fileEntry.getName().endsWith(".json"))
-                continue;
-            items.add(readItem(fileEntry.getAbsolutePath()));
-        }
+        JSONParser jsonParser = new JSONParser();
+        if (itemFile.length() == 0)
+            return items;
+        Object obj = jsonParser.parse(new FileReader(itemFile));
+        jsonArray = (JSONArray) obj;
+        for (Object item : jsonArray)
+            items.add((jsonToItem((JSONObject) item)));
         return items;
+    }
+
+    private static JSONObject itemToJson(Item item) {
+        JSONObject jsonItem = new JSONObject();
+        jsonItem.put("name", item.getName());
+        jsonItem.put("minPrice", item.getMinPrice());
+        jsonItem.put("url", item.getUrl());
+        jsonItem.put("type", item.getType());
+        return jsonItem;
+    }
+
+    private static Item jsonToItem(JSONObject jsonItem) {
+        String name = (String) jsonItem.get("name");
+        String url = (String) jsonItem.get("url");
+        Double minPrice = ((Number) jsonItem.get("minPrice")).doubleValue();
+        String type = (String) jsonItem.get("type");
+        return new Item(name, url, minPrice, type);
     }
 }

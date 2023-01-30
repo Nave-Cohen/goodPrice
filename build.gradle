@@ -1,3 +1,5 @@
+import org.gradle.internal.logging.text.StyledTextOutputFactory
+import static org.gradle.internal.logging.text.StyledTextOutput.Style
 plugins {
     id 'java'
     id 'application'
@@ -16,26 +18,45 @@ repositories {
 dependencies {
     implementation 'org.jsoup:jsoup:1.15.3'
     implementation group: 'org.json', name: 'json', version: '20220924'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.6'
+    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 
+    testImplementation "org.junit.platform:junit-platform-suite:1.9.1"
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.6.1'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.1.0'
+    testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '5.1.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
 
 test {
     useJUnitPlatform()
+    testLogging {
+        afterSuite { desc, result ->
+            if (!desc.parent) { // will match the outermost suite
+                //noinspection GroovyAccessibility
+                def out = services.get(StyledTextOutputFactory).create("an-ouput")
+                println("-----------------------------")
+                def output = "Results: ${result.resultType}\nTotal tests: ${result.testCount}\n"
+                println(output)
+                out.style(Style.Success).text("Passed: ${result.successfulTestCount}").style(Style.Failure).text("\nFailed: ${result.failedTestCount}").style(Style.Normal).println("\nSkipped: ${result.skippedTestCount}")
+                println("-----------------------------")
+            }
+        }
+    }
+    filter{
+        excludeTestsMatching "goodPriceTest.mainTest" //Exclude suite, can be in different task
+    }
 }
 application {
-    mainClassName = 'goodPrice.Main' // class with the main method used by Gradle plugin
+    getMainClass().set('goodPrice.Main') // class with the main method used by Gradle plugin
 }
 jar {
     project.mkdir "${buildDir}/libs/items" //create items folder
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
-        attributes 'Main-Class': application.mainClassName
+        attributes 'Main-Class': application.getMainClass()
     }
     from {
         configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
     }
-
 }
