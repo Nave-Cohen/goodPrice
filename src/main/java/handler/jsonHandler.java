@@ -42,7 +42,8 @@ public class jsonHandler {
         }
     }
 
-    public static ArrayList<Item> readAllItems() throws Exception {
+
+    public static ArrayList<Item> readItems() throws Exception {
         ArrayList<Item> items = new ArrayList<>();
         JSONParser jsonParser = new JSONParser();
         if (itemFile.length() == 0)

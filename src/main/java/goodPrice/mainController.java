@@ -13,8 +13,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
-import java.io.IOException;
-
 
 public class mainController {
     @FXML
@@ -38,7 +36,7 @@ public class mainController {
     @FXML
     protected void initialize() throws Exception {
         listview.setCellFactory(listView -> new ItemCell());
-        items.addAll(jsonHandler.readAllItems());
+        items.addAll(jsonHandler.readItems());
         combo.setItems(options);
         listview.setItems(items);
     }
