@@ -1,6 +1,7 @@
 package handler;
 
 import item.Item;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class jsonHandler {
+
     private static File itemFile = new File("items.json");
     private static JSONArray jsonArray = new JSONArray();
 
@@ -35,6 +37,7 @@ public class jsonHandler {
         jsonArray.remove(i);
     }
     //public static void writeItems(ObservableList<Item> items)  //implementation needed.
+
     public static void writeItems() {
         try {
             FileWriter out = new FileWriter(itemFile);
@@ -50,17 +53,6 @@ public class jsonHandler {
         return jsonArray.isEmpty();
     }
 
-    public static ArrayList<Item> readItems() throws Exception {
-        ArrayList<Item> items = new ArrayList<>();
-        JSONParser jsonParser = new JSONParser();
-        if (itemFile.length() == 0)
-            return items;
-        Object obj = jsonParser.parse(new FileReader(itemFile));
-        jsonArray = (JSONArray) obj;
-        for (Object item : jsonArray)
-            items.add((jsonToItem((JSONObject) item)));
-        return items;
-    }
 
     private static JSONObject itemToJson(Item item) {
         JSONObject jsonItem = new JSONObject();

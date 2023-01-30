@@ -2,15 +2,18 @@ package handlerTest;
 
 import handler.jsonHandler;
 import item.Item;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -76,6 +79,7 @@ public class jsonHandlerTest {
     @Test
     public void readItemsAfterWringSuccess() throws Exception {
         jsonHandler.addItem(item);
+
         jsonHandler.writeItems(); //write to file
         ArrayList<Item> result = jsonHandler.readItems(); //after last writing.
         assertFalse(result.isEmpty());
@@ -88,4 +92,5 @@ public class jsonHandlerTest {
         jsonHandler.removeItem(item);
         assertTrue(jsonHandler.isEmpty());
     }
+
 }
