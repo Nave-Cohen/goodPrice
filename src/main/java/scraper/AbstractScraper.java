@@ -23,12 +23,8 @@ public abstract class AbstractScraper implements ScraperIF {
     }
 
 
-    public AbstractScraper(String url,File file){
-        try {
-            this.doc = Jsoup.parse(file);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public AbstractScraper(String url,String html){
+            this.doc = Jsoup.parse(html);
     }
 
     public Image getImg(String url) {
