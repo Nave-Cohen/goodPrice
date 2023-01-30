@@ -38,7 +38,7 @@ public class ItemCellController {
         discountText.setText("Discount: " + item.getDiscount().toString() + "%");
         wantedText.setText("Wanted Price: " + item.getMinPrice().toString());
         checkImg.setImage(checkImage());
-        img.setFill(new ImagePattern(item.getImg()));
+        img.setFill(new ImagePattern(new Image(item.getImg())));
     }
 
     @FXML

@@ -3,6 +3,7 @@ package scraper;
 import javafx.scene.image.Image;
 
 import java.io.File;
+import java.io.InputStream;
 
 public class AliScrape extends AbstractScraper {
 
@@ -39,7 +40,7 @@ public class AliScrape extends AbstractScraper {
     }
 
     @Override
-    public Image getImg() {
+    public InputStream getImg() {
         return super.getImg(meta("og:image"));
     }
 }

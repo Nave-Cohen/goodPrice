@@ -1,6 +1,6 @@
 package item;
 
-import javafx.scene.image.Image;
+import java.io.InputStream;
 
 public interface ItemIF {
 
@@ -21,7 +21,7 @@ public interface ItemIF {
 
     public Double getShippingPrice();
 
-    public Image getImg();
+    public InputStream getImg();
 
     public void setName(String name);
 

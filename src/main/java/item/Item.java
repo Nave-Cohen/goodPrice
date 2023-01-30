@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import scraper.AbstractScraper;
 import scraper.AliScrape;
 
+import java.io.InputStream;
 import java.util.Objects;
 
 public class Item implements ItemIF {
@@ -101,7 +102,7 @@ public class Item implements ItemIF {
     }
 
     @Override
-    public Image getImg() {
+    public InputStream getImg() {
         return scraper.getImg();
     }
 }

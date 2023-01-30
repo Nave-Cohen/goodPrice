@@ -5,9 +5,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import scraper.AbstractScraper;
+import scraperTest.AliScrapeTest;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class ItemTest {
@@ -25,6 +32,7 @@ public class ItemTest {
         Double expected = 15.0;
         when(scraper.getPrice()).thenReturn(expected);
         Double result = item.getPrice();
+        verify(scraper).getPrice();
         assertEquals(expected, result);
     }
 
@@ -33,6 +41,7 @@ public class ItemTest {
         String expected = "this is description";
         when(scraper.getDescription()).thenReturn(expected);
         String result = item.getDescription();
+        verify(scraper).getDescription();
         assertEquals(expected, result);
     }
 
@@ -41,6 +50,7 @@ public class ItemTest {
         Integer expected = 30;
         when(scraper.getDiscount()).thenReturn(expected);
         Integer result = scraper.getDiscount();
+        verify(scraper).getDiscount();
         assertEquals(expected, result);
     }
 
@@ -85,6 +95,7 @@ public class ItemTest {
         when(scraper.getPrice()).thenReturn(100.0);
         Boolean expected = false;
         Boolean result = item.isPrice();
+        verify(scraper).getPrice();
         assertEquals(expected, result);
     }
 
@@ -143,4 +154,12 @@ public class ItemTest {
         fail("RuntimeException need to be raised.");
     }
 
+    @Test
+    public void getImageSuccess() throws IOException {
+        InputStream expected = AliScrapeTest.class.getResourceAsStream("/aliImage.jpeg");
+        when(scraper.getImg()).thenReturn(expected);
+        InputStream result = item.getImg();
+        verify(scraper).getImg();
+        assertEquals(expected,result);
+    }
 }
