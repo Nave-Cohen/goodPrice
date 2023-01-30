@@ -51,7 +51,10 @@ application {
     getMainClass().set('goodPrice.Main') // class with the main method used by Gradle plugin
 }
 jar {
-    new File("${buildDir}/libs", "items.json").text = "" //create item.json file.
+    File file = new File("${buildDir}/libs", "items.json") //create item.json file.
+    if (!file.exists()){
+        file.createNewFile();
+    }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
         attributes 'Main-Class': application.getMainClass()
