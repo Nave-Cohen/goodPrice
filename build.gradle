@@ -51,9 +51,9 @@ application {
     getMainClass().set('goodPrice.Main') // class with the main method used by Gradle plugin
 }
 jar {
-    File file = new File("${buildDir}/libs/items.json") //create item.json file.
-    if (!file.exists()){
-        file.createNewFile();
+    File jsonFile = new File("${buildDir}/libs/items.json") //create item.json file.
+    if (!jsonFile.exists()){
+        jsonFile.createNewFile();
     }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
