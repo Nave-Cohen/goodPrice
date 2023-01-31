@@ -2,9 +2,9 @@ package handlerTest;
 
 import handler.jsonHandler;
 import item.Item;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,6 +19,7 @@ public class jsonHandlerTest {
 
     private Item item;
     private jsonHandler jHandler;
+
     private void cleanFile(File file) {
         try {
             PrintWriter writer = new PrintWriter(file);
@@ -32,7 +33,6 @@ public class jsonHandlerTest {
     @BeforeEach
     public void setUp() throws IOException {
         item = new Item("name", "url", 23.4, "type");
-
         URL url = jsonHandlerTest.class.getResource("/items.json");
         File file = new File(url.getPath());
         jHandler = new jsonHandler(file);
@@ -44,6 +44,43 @@ public class jsonHandlerTest {
         ArrayList<Item> result = jHandler.readItems(); //need to be changed to true.
         assertTrue(result.isEmpty()); //list is empty on created.
     }
+
+    @Test
+    public void addItemNullFail() {
+        try {
+            jHandler.addItem(null);
+        } catch (NullPointerException e) {
+            assertEquals(e.getMessage(),"Item cannot be null");
+            return;
+        }
+        fail("not need to be raise.");
+    }
+
+    @Test
+    public void addItemSuccess() {
+        jHandler.addItem(item);
+        assertFalse(jHandler.isEmpty());
+    }
+
+    @Test
+    public void removeItemNullFail() {
+        try {
+            jHandler.removeItem(null);
+        } catch (NullPointerException e) {
+            assertEquals(e.getMessage(),"Item cannot be null");
+            return;
+        }
+        fail("not need to be raise.");
+    }
+
+    @Test
+    public void removeItemSuccess() {
+        jHandler.addItem(item);
+        assertFalse(jHandler.isEmpty());
+        jHandler.removeItem(item);
+        assertTrue(jHandler.isEmpty());
+    }
+
 
     @Test
     public void writeItemsEmptySuccess() {
@@ -64,29 +101,14 @@ public class jsonHandlerTest {
         }
     }
 
-    @Test
-    public void addItemNullFail() {
-        try {
-            jHandler.addItem(null);
-        } catch (NullPointerException e) {
-            return;
-        }
-        fail("not need to be raise.");
-    }
 
     @Test
-    public void readItemsAfterWringSuccess() throws Exception {
+    public void readItemsAfterWritingSuccess() throws Exception {
         jHandler.addItem(item);
         jHandler.writeItems(); //write to file
         ArrayList<Item> result = jHandler.readItems(); //after last writing.
         assertFalse(result.isEmpty());
     }
 
-    @Test
-    public void removeItemSuccess() {
-        jHandler.addItem(item);
-        assertFalse(jHandler.isEmpty());
-        jHandler.removeItem(item);
-        assertTrue(jHandler.isEmpty());
-    }
+
 }

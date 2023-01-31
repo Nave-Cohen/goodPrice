@@ -13,30 +13,41 @@ import java.util.ArrayList;
 
 public class jsonHandler {
     private File itemFile;
-    private  JSONArray jsonArray;
+    private JSONArray jsonArray;
 
-    public jsonHandler(){
+    public jsonHandler() {
         itemFile = new File("items.json");
+        try {
+            itemFile.createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException();
+        }
         jsonArray = new JSONArray();
     }
-    public jsonHandler(File file){
+
+    public jsonHandler(File file) {
         itemFile = file;
         jsonArray = new JSONArray();
     }
 
     public void addItem(Item item) {
+        if (item == null)
+            throw new NullPointerException("Item cannot be null");
         jsonArray.add(itemToJson(item));
     }
 
     public void removeItem(Item item) {
+        if (item == null)
+            throw new NullPointerException("Item cannot be null");
         int i = 0;
         for (Object it : jsonArray) {
             Item jsonItem = jsonToItem((JSONObject) it);
-            if (jsonItem.equals(item))
+            if (jsonItem.equals(item)) {
+                jsonArray.remove(i);
                 break;
+            }
             i++;
         }
-        jsonArray.remove(i);
     }
     //public static void writeItems(ObservableList<Item> items)  //implementation needed.
 
