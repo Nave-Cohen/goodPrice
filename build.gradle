@@ -1,5 +1,7 @@
 import org.gradle.internal.logging.text.StyledTextOutputFactory
+
 import static org.gradle.internal.logging.text.StyledTextOutput.Style
+
 plugins {
     id 'java'
     id 'application'
@@ -9,7 +11,7 @@ plugins {
 
 javafx {
     version = "11"
-    modules = [ 'javafx.controls' ,'javafx.fxml' ]
+    modules = ['javafx.controls', 'javafx.fxml']
 }
 repositories {
     mavenCentral()
@@ -32,8 +34,7 @@ test {
     useJUnitPlatform()
     testLogging {
         afterSuite { desc, result ->
-            if (!desc.parent) { // will match the outermost suite
-                //noinspection GroovyAccessibility
+            if (!desc.parent) { 
                 def out = services.get(StyledTextOutputFactory).create("an-ouput")
                 println("-----------------------------")
                 def output = "Results: ${result.resultType}\nTotal tests: ${result.testCount}\n"
@@ -43,17 +44,19 @@ test {
             }
         }
     }
-    filter{
+    filter {
         excludeTestsMatching "goodPriceTest.mainTest" //Exclude suite, can be in different task
     }
 }
 application {
     getMainClass().set('goodPrice.Main') // class with the main method used by Gradle plugin
 }
+
 tasks.register('copyReport2', Copy) {
     from "$buildDir/resources/main/items.json"
     into "$buildDir/libs"
 }
+
 jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
