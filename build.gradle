@@ -50,11 +50,9 @@ test {
 application {
     getMainClass().set('goodPrice.Main') // class with the main method used by Gradle plugin
 }
-task addJsonFile(){
-    File jsonFile = new File("${buildDir}/libs/items.json") //create item.json file.
-    if (!jsonFile.exists()){
-        jsonFile.createNewFile();
-    }
+tasks.register('copyReport2', Copy) {
+    from "$buildDir/resources/main/items.json"
+    into "$buildDir/libs"
 }
 jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
