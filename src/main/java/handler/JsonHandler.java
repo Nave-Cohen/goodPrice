@@ -10,7 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-
+@SuppressWarnings("unchecked")
 public class JsonHandler {
     private File itemFile;
     private JSONArray jsonArray;
@@ -33,7 +33,8 @@ public class JsonHandler {
     public void addItem(Item item) {
         if (item == null)
             throw new NullPointerException("Item cannot be null");
-        jsonArray.add(itemToJson(item));
+        JSONObject json = itemToJson(item);
+        jsonArray.add(json);
     }
 
     public void removeItem(Item item) {
@@ -49,6 +50,7 @@ public class JsonHandler {
             i++;
         }
     }
+
     //public static void writeItems(ObservableList<Item> items)  //implementation needed.
 
     public void writeItems() {

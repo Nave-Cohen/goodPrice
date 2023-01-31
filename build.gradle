@@ -45,10 +45,12 @@ jar {
 
 test {
     useJUnitPlatform()
-    println("\n'gradlew showReports' to view test reports.")
-    println("'gradlew coverageResult' to view coverage reports.\n")
     filter {
         excludeTestsMatching "goodPriceTest.MainTest" //Exclude suite, can be in different task
+    }
+    doLast{
+        println("\ngradlew showReports - to view test reports.")
+        println("gradlew coverageResult - to view coverage reports.\n")
     }
 }
 
