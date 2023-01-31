@@ -18,7 +18,7 @@ public class jsonHandlerTest {
     //readItem,writeItem,readAllItems,writeAllItems,filePath.
 
     private Item item;
-
+    private jsonHandler jHandler;
     private void cleanFile(File file) {
         try {
             PrintWriter writer = new PrintWriter(file);
@@ -32,22 +32,23 @@ public class jsonHandlerTest {
     @BeforeEach
     public void setUp() throws IOException {
         item = new Item("name", "url", 23.4, "type");
+
         URL url = jsonHandlerTest.class.getResource("/items.json");
         File file = new File(url.getPath());
+        jHandler = new jsonHandler(file);
         cleanFile(file);
-        jsonHandler.setFolder(file);
     }
 
     @Test
     public void readItemsEmptySuccess() throws Exception {
-        ArrayList<Item> result = jsonHandler.readItems(); //need to be changed to true.
+        ArrayList<Item> result = jHandler.readItems(); //need to be changed to true.
         assertTrue(result.isEmpty()); //list is empty on created.
     }
 
     @Test
     public void writeItemsEmptySuccess() {
         try {
-            jsonHandler.writeItems(); //write to file
+            jHandler.writeItems(); //write to file
         } catch (Exception e) {
             fail("not need to be raise.");
         }
@@ -56,8 +57,8 @@ public class jsonHandlerTest {
     @Test
     public void writeItemsSuccess() {
         try {
-            jsonHandler.addItem(item);
-            jsonHandler.writeItems(); //write to file
+            jHandler.addItem(item);
+            jHandler.writeItems(); //write to file
         } catch (Exception e) {
             fail("not need to be raise.");
         }
@@ -66,7 +67,7 @@ public class jsonHandlerTest {
     @Test
     public void addItemNullFail() {
         try {
-            jsonHandler.addItem(null);
+            jHandler.addItem(null);
         } catch (NullPointerException e) {
             return;
         }
@@ -75,17 +76,17 @@ public class jsonHandlerTest {
 
     @Test
     public void readItemsAfterWringSuccess() throws Exception {
-        jsonHandler.addItem(item);
-        jsonHandler.writeItems(); //write to file
-        ArrayList<Item> result = jsonHandler.readItems(); //after last writing.
+        jHandler.addItem(item);
+        jHandler.writeItems(); //write to file
+        ArrayList<Item> result = jHandler.readItems(); //after last writing.
         assertFalse(result.isEmpty());
     }
 
     @Test
     public void removeItemSuccess() {
-        jsonHandler.addItem(item);
-        assertFalse(jsonHandler.isEmpty());
-        jsonHandler.removeItem(item);
-        assertTrue(jsonHandler.isEmpty());
+        jHandler.addItem(item);
+        assertFalse(jHandler.isEmpty());
+        jHandler.removeItem(item);
+        assertTrue(jHandler.isEmpty());
     }
 }

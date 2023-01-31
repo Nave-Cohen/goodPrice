@@ -4,6 +4,7 @@ import handler.jsonHandler;
 import item.Item;
 import item.ItemCell;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,22 +31,29 @@ public class mainController {
     @FXML
     private ImageView priceError, urlError, nameError, comboError;
 
+    private jsonHandler jHandler = new jsonHandler();
     private static final ObservableList<Item> items = FXCollections.observableArrayList();
     private final ObservableList<String> options = FXCollections.observableArrayList("AliExpress");
 
     @FXML
     protected void initialize() throws Exception {
         listview.setCellFactory(listView -> new ItemCell());
-        items.addAll(jsonHandler.readItems());
+        items.addAll(jHandler.readItems());
+        items.addListener((ListChangeListener<Item>) c -> {
+            while (c.next())
+                for (Item removedItem : c.getRemoved())
+                    jHandler.removeItem(removedItem);
+        });
         combo.setItems(options);
         listview.setItems(items);
     }
 
     public static void remove(Item item) {
         items.remove(item);
-        jsonHandler.removeItem(item);
     }
-
+    public void writeItems(){
+        jHandler.writeItems();
+    }
 
     private Boolean checkInput() {
         boolean bool = true;
@@ -83,7 +91,7 @@ public class mainController {
         Item item = new Item(name, url, minPrice, type);
         if (!items.contains(item)) {
             items.add(item);
-            jsonHandler.addItem(item);
+            jHandler.addItem(item);
         }
         clearFields();
     }

@@ -18,13 +18,13 @@ public class Main extends Application {
         hostServices = getHostServices();
         FXMLLoader load = new FXMLLoader(getClass().getResource("/MAIN.fxml"));
         Parent root = load.load();
-
+        mainController controller = load.getController();
         Scene scene = new Scene(root);
         String css = this.getClass().getResource("/application.css").toExternalForm();
         scene.getStylesheets().add(css);
         stage.setScene(scene);
         stage.setOnCloseRequest(e -> {
-            jsonHandler.writeItems();
+            controller.writeItems();
             System.exit(0);
         });
         stage.show();
