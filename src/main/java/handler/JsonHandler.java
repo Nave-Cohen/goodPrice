@@ -11,11 +11,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class jsonHandler {
+public class JsonHandler {
     private File itemFile;
     private JSONArray jsonArray;
 
-    public jsonHandler() {
+    public JsonHandler() {
         itemFile = new File("items.json");
         try {
             itemFile.createNewFile();
@@ -25,7 +25,7 @@ public class jsonHandler {
         jsonArray = new JSONArray();
     }
 
-    public jsonHandler(File file) {
+    public JsonHandler(File file) {
         itemFile = file;
         jsonArray = new JSONArray();
     }

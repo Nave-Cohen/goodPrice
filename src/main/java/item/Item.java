@@ -1,6 +1,5 @@
 package item;
 
-import javafx.scene.image.Image;
 import scraper.AbstractScraper;
 import scraper.AliScrape;
 

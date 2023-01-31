@@ -1,6 +1,6 @@
 package goodPrice;
 
-import handler.jsonHandler;
+import handler.JsonHandler;
 import item.Item;
 import item.ItemCell;
 import javafx.collections.FXCollections;
@@ -15,7 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
 
-public class mainController {
+public class MainController {
     @FXML
     private Button addBtn;
 
@@ -31,7 +31,7 @@ public class mainController {
     @FXML
     private ImageView priceError, urlError, nameError, comboError;
 
-    private jsonHandler jHandler = new jsonHandler();
+    private JsonHandler jHandler = new JsonHandler();
     private static final ObservableList<Item> items = FXCollections.observableArrayList();
     private final ObservableList<String> options = FXCollections.observableArrayList("AliExpress");
 

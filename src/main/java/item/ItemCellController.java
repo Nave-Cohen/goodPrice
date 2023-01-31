@@ -1,10 +1,9 @@
 package item;
 
 import goodPrice.Main;
-import goodPrice.mainController;
+import goodPrice.MainController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -20,25 +19,25 @@ import java.io.InputStream;
 public class ItemCellController {
 
     @FXML
-    private Text priceText, discountText, wantedText, nameText, descText;
+    private Text price, discount, wishPrice, name, description;
 
     @FXML
-    private ImageView checkImg, delIcon;
+    private ImageView statusImage;
+
     @FXML
-    private Circle img;
-    @FXML
-    private Button orderBtn;
+    private Circle circleImage;
+
     private Item item;
 
     public void setTemplate(Item item) {
         this.item = item;
-        nameText.setText("Name: " + item.getName());
-        descText.setText("Description: " + item.getDescription());
-        priceText.setText("Price: " + item.getPrice().toString());
-        discountText.setText("Discount: " + item.getDiscount().toString() + "%");
-        wantedText.setText("Wanted Price: " + item.getMinPrice().toString());
-        checkImg.setImage(checkImage());
-        img.setFill(new ImagePattern(new Image(item.getImg())));
+        name.setText("Name: " + item.getName());
+        description.setText("Description: " + item.getDescription());
+        price.setText("Price: " + item.getPrice().toString());
+        discount.setText("Discount: " + item.getDiscount().toString() + "%");
+        wishPrice.setText("Wish Price: " + item.getMinPrice().toString());
+        statusImage.setImage(checkImage());
+        circleImage.setFill(new ImagePattern(new Image(item.getImg())));
     }
 
     @FXML
@@ -48,12 +47,11 @@ public class ItemCellController {
 
     @FXML
     void delete(MouseEvent event) {
-        mainController.remove(item);
+        MainController.remove(item);
     }
 
     private Image checkImage() {
         if (item.isPrice()) {
-
             InputStream url = getClass().getResourceAsStream("/images/check.png");
             return new Image(url);
         } else {

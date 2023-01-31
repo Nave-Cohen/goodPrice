@@ -11,7 +11,6 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -60,7 +59,7 @@ public class AliScrapeTest {
     }
     //Not implemented always return null.
     @Test
-    public void getShippingPrice_NULL() throws IOException {
+    public void getShippingPrice_NULL() {
         assertNull(scraper.getShippingPrice());
     }
 }
