@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 public class AliScrapeTest {
@@ -56,5 +57,10 @@ public class AliScrapeTest {
         assertEquals(expected.getWidth(),result.getWidth()); //Compare width.
         assertEquals(expected.getHeight(),result.getHeight());//Compare height.
         assertEquals(expected.getData().getDataBuffer().getSize(),result.getData().getDataBuffer().getSize()); //Compare sizes.
+    }
+    //Not implemented always return null.
+    @Test
+    public void getShippingPrice_NULL() throws IOException {
+        assertNull(scraper.getShippingPrice());
     }
 }

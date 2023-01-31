@@ -12,31 +12,46 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class jsonHandler {
-    private static File itemFile = new File("items.json");
-    private static JSONArray jsonArray = new JSONArray();
+    private File itemFile;
+    private JSONArray jsonArray;
 
-    public static void setFolder(File file) {
+    public jsonHandler() {
+        itemFile = new File("items.json");
+        try {
+            itemFile.createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException();
+        }
+        jsonArray = new JSONArray();
+    }
+
+    public jsonHandler(File file) {
         itemFile = file;
         jsonArray = new JSONArray();
     }
 
-    public static void addItem(Item item) {
+    public void addItem(Item item) {
+        if (item == null)
+            throw new NullPointerException("Item cannot be null");
         jsonArray.add(itemToJson(item));
     }
 
-    public static void removeItem(Item item) {
+    public void removeItem(Item item) {
+        if (item == null)
+            throw new NullPointerException("Item cannot be null");
         int i = 0;
         for (Object it : jsonArray) {
             Item jsonItem = jsonToItem((JSONObject) it);
-            if (jsonItem.equals(jsonItem))
+            if (jsonItem.equals(item)) {
+                jsonArray.remove(i);
                 break;
+            }
             i++;
         }
-        jsonArray.remove(i);
     }
     //public static void writeItems(ObservableList<Item> items)  //implementation needed.
 
-    public static void writeItems() {
+    public void writeItems() {
         try {
             FileWriter out = new FileWriter(itemFile);
             out.write(jsonArray.toString());
@@ -47,11 +62,11 @@ public class jsonHandler {
     }
 
 
-    public static Boolean isEmpty() {
+    public Boolean isEmpty() {
         return jsonArray.isEmpty();
     }
 
-    public static ArrayList<Item> readItems() throws Exception {
+    public ArrayList<Item> readItems() throws Exception {
         ArrayList<Item> items = new ArrayList<>();
         JSONParser jsonParser = new JSONParser();
         if (itemFile.length() == 0)
@@ -63,7 +78,7 @@ public class jsonHandler {
         return items;
     }
 
-    private static JSONObject itemToJson(Item item) {
+    private JSONObject itemToJson(Item item) {
         JSONObject jsonItem = new JSONObject();
         jsonItem.put("name", item.getName());
         jsonItem.put("minPrice", item.getMinPrice());
@@ -72,7 +87,7 @@ public class jsonHandler {
         return jsonItem;
     }
 
-    private static Item jsonToItem(JSONObject jsonItem) {
+    private Item jsonToItem(JSONObject jsonItem) {
         String name = (String) jsonItem.get("name");
         String url = (String) jsonItem.get("url");
         Double minPrice = ((Number) jsonItem.get("minPrice")).doubleValue();

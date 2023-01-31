@@ -2,6 +2,7 @@ package scraper;
 
 import javafx.scene.image.Image;
 
+
 import java.io.File;
 import java.io.InputStream;
 
@@ -10,6 +11,7 @@ public class AliScrape extends AbstractScraper {
     public AliScrape(String url) {
         super(url);
     }
+    //Constructor for testing, html - html string to parse.
     public AliScrape(String url, String html) {
         super(url, html);
     }

@@ -49,11 +49,10 @@ public class ItemTest {
     public void getDiscountSuccess() {
         Integer expected = 30;
         when(scraper.getDiscount()).thenReturn(expected);
-        Integer result = scraper.getDiscount();
+        Integer result = item.getDiscount();
         verify(scraper).getDiscount();
         assertEquals(expected, result);
     }
-
 
     @Test
     public void getMinPriceSuccess() {

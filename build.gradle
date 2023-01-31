@@ -1,11 +1,10 @@
-import org.gradle.internal.logging.text.StyledTextOutputFactory
-
-import static org.gradle.internal.logging.text.StyledTextOutput.Style
+import java.awt.*
 
 plugins {
     id 'java'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.13'
+    id 'jacoco'
 }
 
 
@@ -16,7 +15,10 @@ javafx {
 repositories {
     mavenCentral()
 }
-
+jacoco {
+    toolVersion = "0.8.8"
+    //reportsDirectory = layout.buildDirectory.dir('$buildDir/reports/tests/test/coverage')
+}
 dependencies {
     implementation 'org.jsoup:jsoup:1.15.3'
     implementation group: 'org.json', name: 'json', version: '20220924'
@@ -31,30 +33,39 @@ dependencies {
 }
 
 test {
+    finalizedBy jacocoTestReport
     useJUnitPlatform()
-    testLogging {
-        afterSuite { desc, result ->
-            if (!desc.parent) { 
-                def out = services.get(StyledTextOutputFactory).create("an-ouput")
-                println("-----------------------------")
-                def output = "Results: ${result.resultType}\nTotal tests: ${result.testCount}\n"
-                println(output)
-                out.style(Style.Success).text("Passed: ${result.successfulTestCount}").style(Style.Failure).text("\nFailed: ${result.failedTestCount}").style(Style.Normal).println("\nSkipped: ${result.skippedTestCount}")
-                println("-----------------------------")
-            }
-        }
-    }
+    println("------------------\n'gradlew testResult' to view test reports.")
+    println("'gradlew coverageResult' to view coverage reports.\n------------------")
     filter {
         excludeTestsMatching "goodPriceTest.mainTest" //Exclude suite, can be in different task
     }
 }
-application {
-    getMainClass().set('goodPrice.Main') // class with the main method used by Gradle plugin
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['goodPrice/mainController*',
+                                        'item/ItemCell*',
+                                        'item/ItemCellController*'])
+        }))
+    }
 }
 
-tasks.register('copyReport2', Copy) {
-    from "$buildDir/resources/main/items.json"
-    into "$buildDir/libs"
+task testResult {
+    doLast {
+        def result = file("$buildDir\\reports\\tests\\test\\index.html").toURI()
+        Desktop.desktop.browse result
+    }
+}
+task coverageResult {
+    doLast {
+        def coverage = file("$buildDir\\reports\\jacoco\\test\\html\\index.html").toURI()
+        Desktop.desktop.browse coverage
+    }
+}
+application {
+    getMainClass().set('goodPrice.Main') // class with the main method used by Gradle plugin
 }
 
 jar {
