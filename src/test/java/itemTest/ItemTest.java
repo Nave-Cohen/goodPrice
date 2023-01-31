@@ -7,8 +7,6 @@ import org.mockito.Mockito;
 import scraper.AbstractScraper;
 import scraperTest.AliScrapeTest;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -154,7 +152,7 @@ public class ItemTest {
     }
 
     @Test
-    public void getImageSuccess() throws IOException {
+    public void getImageSuccess() {
         InputStream expected = AliScrapeTest.class.getResourceAsStream("/aliImage.jpeg");
         when(scraper.getImg()).thenReturn(expected);
         InputStream result = item.getImg();

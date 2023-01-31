@@ -1,24 +1,24 @@
 package handlerTest;
 
-import handler.jsonHandler;
+import handler.JsonHandler;
 import item.Item;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class jsonHandlerTest {
+public class JsonHandlerTest {
     //readItem,writeItem,readAllItems,writeAllItems,filePath.
 
     private Item item;
-    private jsonHandler jHandler;
+    private JsonHandler jHandler;
+
 
     private void cleanFile(File file) {
         try {
@@ -31,11 +31,11 @@ public class jsonHandlerTest {
     }
 
     @BeforeEach
-    public void setUp() throws IOException {
+    public void setUp() {
         item = new Item("name", "url", 23.4, "type");
-        URL url = jsonHandlerTest.class.getResource("/items.json");
+        URL url = JsonHandlerTest.class.getResource("/items.json");
         File file = new File(url.getPath());
-        jHandler = new jsonHandler(file);
+        jHandler = new JsonHandler(file);
         cleanFile(file);
     }
 

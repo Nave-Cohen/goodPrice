@@ -1,9 +1,5 @@
 package scraper;
 
-import javafx.scene.image.Image;
-
-
-import java.io.File;
 import java.io.InputStream;
 
 public class AliScrape extends AbstractScraper {

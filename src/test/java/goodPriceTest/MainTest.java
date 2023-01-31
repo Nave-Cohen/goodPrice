@@ -7,8 +7,8 @@ import scraperTest.AliScrapeTest;
 
 @Suite
 @SelectClasses({ ItemTest.class, AliScrapeTest.class })
-public class mainTest {
-    public mainTest() {
+public class MainTest {
+    public MainTest() {
 
     }
 }

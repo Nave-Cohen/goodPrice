@@ -1,6 +1,5 @@
 package scraper;
 
-import javafx.scene.image.Image;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
