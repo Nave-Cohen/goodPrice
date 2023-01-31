@@ -19,6 +19,7 @@ public class JsonHandlerTest {
     private Item item;
     private JsonHandler jHandler;
 
+
     private void cleanFile(File file) {
         try {
             PrintWriter writer = new PrintWriter(file);

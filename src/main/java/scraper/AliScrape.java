@@ -1,6 +1,5 @@
 package scraper;
 
-
 import java.io.InputStream;
 
 public class AliScrape extends AbstractScraper {

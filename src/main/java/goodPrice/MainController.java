@@ -30,7 +30,6 @@ public class MainController {
 
     @FXML
     private ImageView priceError, urlError, nameError, comboError;
-
     private JsonHandler jHandler = new JsonHandler();
     private static final ObservableList<Item> items = FXCollections.observableArrayList();
     private final ObservableList<String> options = FXCollections.observableArrayList("AliExpress");
