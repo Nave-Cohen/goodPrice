@@ -1,7 +1,6 @@
 package handler;
 
 import item.Item;
-import javafx.collections.ObservableList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -13,11 +12,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class jsonHandler {
-    private static File itemFile = new File("items/items.json");
+    private static File itemFile = new File("items.json");
     private static JSONArray jsonArray = new JSONArray();
 
     public static void setFolder(File file) {
         itemFile = file;
+        jsonArray = new JSONArray();
     }
 
     public static void addItem(Item item) {
@@ -25,12 +25,16 @@ public class jsonHandler {
     }
 
     public static void removeItem(Item item) {
-        jsonArray.remove(itemToJson(item));
+        int i = 0;
+        for (Object it : jsonArray) {
+            Item jsonItem = jsonToItem((JSONObject) it);
+            if (jsonItem.equals(jsonItem))
+                break;
+            i++;
+        }
+        jsonArray.remove(i);
     }
-
-    public static void writeItems(ObservableList<Item> items) throws IOException {
-        //implementation needed.
-    }
+    //public static void writeItems(ObservableList<Item> items)  //implementation needed.
 
     public static void writeItems() {
         try {
@@ -42,6 +46,10 @@ public class jsonHandler {
         }
     }
 
+
+    public static Boolean isEmpty() {
+        return jsonArray.isEmpty();
+    }
 
     public static ArrayList<Item> readItems() throws Exception {
         ArrayList<Item> items = new ArrayList<>();
