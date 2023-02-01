@@ -40,7 +40,7 @@ public class ItemCellController {
     }
 
     @FXML
-    public void openUrl() {
+    public void openUrl(ActionEvent event) {
         Main.hostServices.showDocument(item.getUrl());
     }
 

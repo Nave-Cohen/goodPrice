@@ -61,6 +61,4 @@ public abstract class AbstractScraper implements ScraperIF {
             }
         }
     }
-
-
 }

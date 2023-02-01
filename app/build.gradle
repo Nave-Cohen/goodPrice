@@ -5,10 +5,12 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.13'
     id 'jacoco'
 }
+
 javafx {
     version = "11"
     modules = ['javafx.controls', 'javafx.fxml']
 }
+
 repositories {
     mavenCentral()
 }
