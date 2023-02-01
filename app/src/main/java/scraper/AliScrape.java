@@ -30,8 +30,8 @@ public class AliScrape extends AbstractScraper {
 
     @Override
     public Integer getDiscount() {
-        String precentSigned = meta("og:title").split(" ")[1];
-        return Integer.parseInt(precentSigned.substring(0,precentSigned.length()-1));
+        String percentSigned = meta("og:title").split(" ")[1];
+        return Integer.parseInt(percentSigned.substring(0,percentSigned.length()-1));
     }
 
     @Override

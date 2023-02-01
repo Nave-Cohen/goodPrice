@@ -80,7 +80,7 @@ public class Item implements ItemIF {
 
     @Override
     public void setName(String name) {
-        if (name == null || name == "")
+        if (name == null || name.equals(""))
             throw new RuntimeException();
         this.name = name;
     }
