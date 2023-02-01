@@ -78,7 +78,7 @@ public class MainController {
     }
 
     @FXML
-    public void add() {
+    public void add(ActionEvent event) {
         clearErrors();
         if (!checkInput())
             return;
