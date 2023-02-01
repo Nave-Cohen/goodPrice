@@ -18,22 +18,22 @@
       <ComboBox fx:id="combo" layoutX="334.0" layoutY="60.0" prefHeight="25.0" prefWidth="115.0" promptText="Choose site" />
       <ImageView fx:id="nameError" fitHeight="12.0" fitWidth="12.0" layoutX="11.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
-            <Image url="@images/error.png" />
+            <Image url="@../images/error.png" />
          </image>
       </ImageView>
       <ImageView fx:id="priceError" fitHeight="12.0" fitWidth="12.0" layoutX="200.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
-            <Image url="@images/error.png" />
+            <Image url="@../images/error.png" />
          </image>
       </ImageView>
       <ImageView fx:id="comboError" fitHeight="12.0" fitWidth="12.0" layoutX="317.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
-            <Image url="@images/error.png" />
+            <Image url="@../images/error.png" />
          </image>
       </ImageView>
       <ImageView fx:id="urlError" fitHeight="12.0" fitWidth="12.0" layoutX="12.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
-            <Image url="@images/error.png" />
+            <Image url="@../images/error.png" />
          </image>
       </ImageView>
    </children>

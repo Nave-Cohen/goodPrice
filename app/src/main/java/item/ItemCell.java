@@ -2,18 +2,19 @@ package item;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
 public class ItemCell extends ListCell<Item> {
 
-	private final Pane root;
+	private final HBox root;
 	private final ItemCellController controller;
 
 	public ItemCell() {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/itemCell.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/itemCell2.fxml"));
 			root = loader.load();
 			controller = loader.getController();
 		} catch (IOException e) {

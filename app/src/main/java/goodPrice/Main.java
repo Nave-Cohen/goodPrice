@@ -15,7 +15,7 @@ public class Main extends Application {
 
     public void start(Stage stage) throws IOException {
         hostServices = getHostServices();
-        FXMLLoader load = new FXMLLoader(getClass().getResource("/MAIN.fxml"));
+        FXMLLoader load = new FXMLLoader(getClass().getResource("/fxml/main2.fxml"));
         Parent root = load.load();
         MainController controller = load.getController();
         Scene scene = new Scene(root);
