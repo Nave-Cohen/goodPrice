@@ -30,12 +30,12 @@ public class AliScrapeTest {
 
 
     private String getHtml(InputStream stream) throws IOException {
-        String html = "";
+        StringBuilder html = new StringBuilder();
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
         String inputLine;
         while ((inputLine = reader.readLine()) != null)
-            html += inputLine + reader.readLine() + "\n";
-        return html;
+            html.append(inputLine).append(reader.readLine()).append("\n");
+        return html.toString();
     }
 
     @BeforeEach
@@ -44,7 +44,7 @@ public class AliScrapeTest {
         jsoup = Mockito.mock(Connection.class);
         String html = getHtml(firstStream);
         when(jsoup.get()).thenReturn(Jsoup.parse(html));
-        scraper = new AliScrape(jsoup, TimeUnit.SECONDS.toMillis(10));
+        scraper = new AliScrape(jsoup, TimeUnit.SECONDS.toMillis(1));
     }
 
     @Test
@@ -84,11 +84,14 @@ public class AliScrapeTest {
     }
 
     @Test
-    public void timerTask() throws IOException, InterruptedException {
-        InputStream secondStream = AliScrapeTest.class.getResourceAsStream("/aliExpress2.html");
+    public void FetchTaskTest() throws IOException, InterruptedException {
+        assertEquals(1.83,scraper.getPrice());
+        InputStream secondStream = AliScrapeTest.class.getResourceAsStream("/aliExpress2.html"); //simulates price updated
         String html = getHtml(secondStream);
-        when(jsoup.get()).thenReturn(Jsoup.parse(html));
-        scraper.waitForTask();
+        when(jsoup.get()).thenReturn(Jsoup.parse(html)); //replace Doc inside scraper.
+        synchronized (scraper.monitor){
+            scraper.monitor.wait();
+        }
         Double expected =  4.83;
         Double result = scraper.getPrice();
         assertEquals(expected,result);

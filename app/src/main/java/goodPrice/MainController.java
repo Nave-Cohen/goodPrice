@@ -6,7 +6,6 @@ import item.ItemCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -79,7 +78,7 @@ public class MainController {
     }
 
     @FXML
-    public void add(ActionEvent event) {
+    public void add() {
         clearErrors();
         if (!checkInput())
             return;

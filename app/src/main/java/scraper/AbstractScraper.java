@@ -13,66 +13,54 @@ import java.util.concurrent.TimeUnit;
 
 
 public abstract class AbstractScraper implements ScraperIF {
-    private Timer timer = new Timer();
+    private Timer timer = new Timer(true);
     protected Document doc;
-    private Object monitor = new Object();
-    private Long waitTime = TimeUnit.MINUTES.toMillis(1);
+    public Object monitor = new Object();
     private Connection jsoup;
 
     public AbstractScraper(String url) {
         jsoup = Jsoup.connect(url);
-        doc = getDoc();
-    }
-
-
-    public AbstractScraper(Connection jsoup, Long waitTime) {
-        this.jsoup = jsoup;
-        this.waitTime = waitTime;
-        doc = getDoc();
-    }
-
-    public InputStream getImg(String url) {
-        URL imageUrl = null;
-        InputStream in = null;
-        try {
-            imageUrl = new URL(url);
-            in = imageUrl.openStream();
-        } catch (IOException e) {
-            in = getClass().getResourceAsStream("images/default.png");
-        }
-        return in;
-    }
-
-    private Document getDoc() {
-        try {
-            timer.schedule(createTask(), waitTime);
-            return jsoup.get();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        timer.schedule(new FetchTask(), 0, TimeUnit.MINUTES.toMillis(1));
     }
 
     //for testing.
-    public void waitForTask() {
+    public AbstractScraper(Connection jsoup, Long waitTime) {
+        this.jsoup = jsoup;
+        timer.schedule(new FetchTask(), waitTime);
+    }
+
+    private Document getHtmlDoc() {
         try {
-            synchronized (monitor) {
-                monitor.wait();
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            return jsoup.get();
+        } catch (IOException e) {
+            throw new RuntimeException();
         }
     }
 
-    private TimerTask createTask() {
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                doc = getDoc();
-                synchronized (monitor) {
-                    monitor.notify();
-                }
-            }
-        };
-        return task;
+    public InputStream getImg(String url) {
+        try {
+            URL imageUrl = new URL(url);
+            return imageUrl.openStream();
+        } catch (IOException e) {
+            return getClass().getResourceAsStream("images/default.png");
+        }
     }
+
+    //fetching new doc from connection every few minutes
+    public class FetchTask extends TimerTask {
+
+        public FetchTask() {
+            doc = getHtmlDoc();
+        }
+
+        @Override
+        public void run() {
+            doc = getHtmlDoc();
+            synchronized (monitor) {
+                monitor.notify();
+            }
+        }
+    }
+
+
 }
