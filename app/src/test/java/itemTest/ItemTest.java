@@ -7,7 +7,6 @@ import org.mockito.Mockito;
 import scraper.AbstractScraper;
 import scraperTest.AliScrapeTest;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

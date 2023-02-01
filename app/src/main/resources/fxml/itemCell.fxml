@@ -20,7 +20,7 @@
       <Text fx:id="discount" layoutX="233.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell-txt" text="Discount:" />
       <ImageView fx:id="statusImage" fitHeight="16.0" fitWidth="20.0" layoutX="469.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/check.png" />
+            <Image url="@../images/check.png" />
          </image>
       </ImageView>
       <Text fx:id="wishPrice" layoutX="324.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell-txt" text="Wanted price:" wrappingWidth="167.353515625" />
@@ -29,7 +29,7 @@
       <Text fx:id="statusText" layoutX="427.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell-txt" text="Status:" />
       <ImageView fx:id="delIcon" fitHeight="13.0" fitWidth="16.0" layoutX="471.0" layoutY="96.0" onMouseClicked="#delete" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/delete.png" />
+            <Image url="@../images/delete.png" />
          </image>
       </ImageView>
    </children>

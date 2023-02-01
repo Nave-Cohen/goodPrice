@@ -29,6 +29,7 @@ hs_err_pid*
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+*.iml
 
 # AWS User-specific
 .idea/**/aws.xml
@@ -50,7 +51,7 @@ hs_err_pid*
 .idea/**/libraries
 .gradle
 **/build/
-!src/**/build/
+!app/src/**/build/
 
 # Ignore Gradle GUI config
 gradle-app.setting

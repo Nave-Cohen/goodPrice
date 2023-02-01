@@ -1,5 +1,7 @@
 package scraper;
 
+import org.jsoup.Connection;
+
 import java.io.InputStream;
 
 public class AliScrape extends AbstractScraper {
@@ -8,8 +10,8 @@ public class AliScrape extends AbstractScraper {
         super(url);
     }
     //Constructor for testing, html - html string to parse.
-    public AliScrape(String url, String html) {
-        super(url, html);
+    public AliScrape(Connection jsoup,Long waitTime) {
+        super(jsoup,waitTime);
     }
 
     private String meta(String value) {return doc.select(String.format("meta[property=%s]" ,value)).first().attr("content");}
