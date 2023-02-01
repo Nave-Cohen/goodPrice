@@ -67,10 +67,10 @@ public abstract class AbstractScraper implements ScraperIF {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
+                doc = getDoc();
                 synchronized (monitor) {
                     monitor.notify();
                 }
-                doc = getDoc();
             }
         };
         return task;

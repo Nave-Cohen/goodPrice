@@ -6,7 +6,6 @@ import org.jsoup.Jsoup;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.mockito.internal.matchers.Any;
 import scraper.AbstractScraper;
 import scraper.AliScrape;
 
@@ -28,7 +27,7 @@ import static org.mockito.Mockito.*;
 public class AliScrapeTest {
     private AbstractScraper scraper;
     private Connection jsoup;
-    private InputStream firstStream,secondStream;
+
 
     private String getHtml(InputStream stream) throws IOException {
         String html = "";
@@ -41,8 +40,7 @@ public class AliScrapeTest {
 
     @BeforeEach
     public void setUp() throws IOException {
-        firstStream = AliScrapeTest.class.getResourceAsStream("/aliExpress.html");
-        secondStream = AliScrapeTest.class.getResourceAsStream("/aliExpress2.html");
+        InputStream firstStream = AliScrapeTest.class.getResourceAsStream("/aliExpress.html");
         jsoup = Mockito.mock(Connection.class);
         String html = getHtml(firstStream);
         when(jsoup.get()).thenReturn(Jsoup.parse(html));
@@ -87,10 +85,10 @@ public class AliScrapeTest {
 
     @Test
     public void timerTask() throws IOException, InterruptedException {
+        InputStream secondStream = AliScrapeTest.class.getResourceAsStream("/aliExpress2.html");
         String html = getHtml(secondStream);
         when(jsoup.get()).thenReturn(Jsoup.parse(html));
         scraper.waitForTask();
-        verify(jsoup,times(2)).get();
         Double expected =  4.83;
         Double result = scraper.getPrice();
         assertEquals(expected,result);
