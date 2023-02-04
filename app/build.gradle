@@ -9,10 +9,12 @@ plugins {
 repositories {
     mavenCentral()
 }
+
 dependencies {
     implementation 'org.jsoup:jsoup:1.15.3'
     implementation group: 'commons-io', name: 'commons-io', version: '2.6'
     implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    implementation gradleApi()
 
     testImplementation "org.junit.platform:junit-platform-suite:1.9.1"
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
@@ -39,6 +41,7 @@ jar {
     from {
         configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
     }
+    destinationDirectory.set(file("$buildDir/lib"))
 }
 
 test {
@@ -59,8 +62,16 @@ jacocoTestReport {
         }))
     }
 }
+startScripts {
+    dependsOn jar
+    classpath = files("${buildDir}/lib/app.jar")
+    outputDir = file('build/GoodPrice')
+    mainClass = application.getMainClass()
+    applicationName = 'GoodPrice'
+}
 
 task reports {
+    description = 'open test & coverage reports on browser'
     dependsOn jacocoTestReport
     doLast {
         def coverage = file("$buildDir\\reports\\jacoco\\test\\html\\index.html").toURI()

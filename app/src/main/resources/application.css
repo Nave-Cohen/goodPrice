@@ -8,9 +8,19 @@
 }
 .cell-txt{
     -fx-fill: white;
-    -fx-font-family: ariel;
+    -fx-font-family: Yu Gothic Medium;
+    -fx-font-size: 14px;
 }
-
+.header{
+    -fx-fill: #7289da;
+    -fx-font-family: Yu Gothic Medium;
+    -fx-font-size: 18px;
+}
+.wish-text{
+    -fx-fill: #adbdf7;
+    -fx-font-family: Yu Gothic Medium;
+    -fx-font-size: 16px;
+}
 .button {
     -fx-text-fill: white;
     -fx-background-color: #7289da;

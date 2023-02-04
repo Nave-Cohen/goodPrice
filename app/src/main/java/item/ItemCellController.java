@@ -31,7 +31,7 @@ public class ItemCellController {
 
     public void setTemplate(Item item) {
         this.item = item;
-        name.setText("Name: " + item.getName());
+        name.setText(item.getName());
         description.setText("Description: " + item.getDescription());
         price.setText("Price: " + item.getPrice().toString());
         discount.setText("Discount: " + item.getDiscount().toString() + "%");
