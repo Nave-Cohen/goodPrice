@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="402.0" prefWidth="711.0" spacing="5.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="goodPrice.MainController">
+<VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="402.0" prefWidth="711.0" spacing="5.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="goodPrice.MainController">
    <children>
-      <HBox prefHeight="51.0" prefWidth="571.0" spacing="5.0" VBox.vgrow="NEVER">
+      <HBox alignment="CENTER" prefHeight="51.0" prefWidth="571.0" spacing="5.0" VBox.vgrow="NEVER">
          <children>
             <ImageView fx:id="urlError" fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
@@ -21,8 +21,11 @@
             </ImageView>
             <TextField fx:id="urlEntry" prefHeight="25.0" prefWidth="667.0" promptText="URL" HBox.hgrow="ALWAYS" />
          </children>
+         <VBox.margin>
+            <Insets right="12.0" />
+         </VBox.margin>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="711.0" spacing="5.0" VBox.vgrow="NEVER">
+      <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="711.0" spacing="5.0" VBox.vgrow="NEVER">
          <children>
             <ImageView fx:id="nameError" fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
@@ -35,20 +38,23 @@
                   <Image url="@../images/error.png" />
                </image>
             </ImageView>
-            <TextField fx:id="minPriceEntry" prefHeight="25.0" prefWidth="83.0" promptText="Min Price" HBox.hgrow="ALWAYS" />
+            <TextField fx:id="minPriceEntry" prefHeight="25.0" prefWidth="83.0" promptText="Min Price" HBox.hgrow="NEVER" />
             <ImageView fx:id="comboError" fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@../images/error.png" />
                </image>
             </ImageView>
-            <ComboBox fx:id="combo" prefHeight="25.0" prefWidth="115.0" promptText="Choose site" HBox.hgrow="ALWAYS" />
-            <Button fx:id="addBtn" mnemonicParsing="false" onAction="#add" text="Add item" />
+            <ComboBox fx:id="combo" prefHeight="25.0" prefWidth="115.0" promptText="Choose site" HBox.hgrow="NEVER" />
+            <Button fx:id="addBtn" mnemonicParsing="false" onAction="#add" text="Add item">
+               <HBox.margin>
+                  <Insets left="6.0" />
+               </HBox.margin></Button>
          </children>
          <VBox.margin>
-            <Insets />
+            <Insets right="12.0" />
          </VBox.margin>
       </HBox>
-      <ListView fx:id="listview" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="340.0" prefWidth="711.0" VBox.vgrow="NEVER" />
+      <ListView fx:id="listview" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS" />
    </children>
    <padding>
       <Insets top="10.0" />

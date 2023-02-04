@@ -13,7 +13,7 @@ public class ItemCell extends ListCell<Item> {
 
 	public ItemCell() {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/itemCell2.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/itemCell.fxml"));
 			root = loader.load();
 			controller = loader.getController();
 		} catch (IOException e) {

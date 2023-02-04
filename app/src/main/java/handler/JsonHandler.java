@@ -9,14 +9,17 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
+
 @SuppressWarnings("unchecked")
 public class JsonHandler {
     private File itemFile;
     private JSONArray jsonArray;
 
     public JsonHandler() {
-        itemFile = new File("items.json");
+        itemFile = checkRunner();
         try {
             itemFile.createNewFile();
         } catch (IOException e) {
@@ -30,6 +33,12 @@ public class JsonHandler {
         jsonArray = new JSONArray();
     }
 
+    private File checkRunner(){
+        String protocol = this.getClass().getResource("JsonHandler.class").getProtocol();
+        if (Objects.equals(protocol, "jar"))
+            return new File("items.json");
+        return new File(this.getClass().getResource("/items.json").getPath());
+    }
     public void addItem(Item item) {
         if (item == null)
             throw new NullPointerException("Item cannot be null");
